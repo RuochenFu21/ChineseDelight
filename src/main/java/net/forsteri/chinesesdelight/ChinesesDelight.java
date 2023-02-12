@@ -3,10 +3,12 @@ package net.forsteri.chinesesdelight;
 import com.mojang.logging.LogUtils;
 import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
+import net.forsteri.chinesesdelight.registries.RecipeTypes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -14,7 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -34,6 +35,8 @@ public class ChinesesDelight {
 
         ModFoodItems.ITEMS.register(eventBus);
         ModFoodBlocks.BLOCKS.register(eventBus);
+    //    OtherRegistries.register();
+        RecipeTypes.register(eventBus);
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
