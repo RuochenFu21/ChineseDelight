@@ -33,4 +33,11 @@ public class AbstractCustomizable extends Item {
     public boolean isFoil(ItemStack pStack) {
         return Arrays.stream(pStack.getOrCreateTag().getIntArray("fillings")).anyMatch(i -> CustomRecipeHandler.rawFillingList().get(i).asItem().isFoil(pStack));
     }
+
+    @Override
+    public @NotNull Component getName(ItemStack pStack) {
+        return new TranslatableComponent(
+                pStack.getOrCreateTag().contains("fillings") ?  getDescriptionId(pStack) + ".filled" : getDescriptionId(pStack) + ".empty"
+        );
+    }
 }
