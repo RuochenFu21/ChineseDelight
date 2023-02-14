@@ -1,7 +1,7 @@
 package net.forsteri.chinesesdelight.mixin;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableBaseItem;
-import net.forsteri.chinesesdelight.contents.foods.customizable.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,14 +33,14 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
         if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoardEntity) {
             ItemStack heldStack = player.getItemInHand(hand);
             if (!cuttingBoardEntity.isEmpty()) {
-                if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractCustomizableBaseItem storedItem) {
-                    if (CustomRecipeHandler.supportedFillings().contains(heldStack.getItem())
+                if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractCustomizableProcessingItem storedItem) {
+                    if (CustomRecipeHandler.rawFillingList().contains(heldStack.getItem())
                             && cuttingBoardEntity.getStoredItem().getOrCreateTag().getIntArray("fillings").length < storedItem.maxFillingSize()){
                         var inserted = new ItemStack(storedItem);
                         inserted.getOrCreateTag().putIntArray("fillings",
 
                                 ArrayUtils.addAll(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getIntArray("fillings"),
-                                        CustomRecipeHandler.supportedFillings().indexOf(heldStack.getItem()))
+                                        CustomRecipeHandler.rawFillingList().indexOf(heldStack.getItem()))
                         );
 
                         cuttingBoardEntity.getInventory().insertItem(0,

@@ -1,6 +1,6 @@
-package net.forsteri.chinesesdelight.contents.foods.customizable;
+package net.forsteri.chinesesdelight.handlers;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableBaseItem;
+import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
 import net.forsteri.chinesesdelight.registries.OtherRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -15,7 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
 {
@@ -35,18 +37,18 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
         for (int i = 0; i < p_44002_.getContainerSize(); i++) {
             if (!p_44002_.getItem(i).isEmpty()){
                 if (
-                        !(p_44002_.getItem(i).getItem() instanceof AbstractCustomizableBaseItem
-                        ||supportedFillings().contains(p_44002_.getItem(i).getItem())))
+                        !(p_44002_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem
+                        || rawFillingList().contains(p_44002_.getItem(i).getItem())))
                     return false;
                 else
-                    if (p_44002_.getItem(i).getItem() instanceof AbstractCustomizableBaseItem){
+                    if (p_44002_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem){
                         bases++;
                     baseItem = p_44002_.getItem(i);}
                     else
                         fillings++;
             }
         }
-        return bases == 1 && baseItem.getOrCreateTag().getIntArray("fillings").length+fillings <= ((AbstractCustomizableBaseItem) baseItem.getItem()).maxFillingSize();
+        return bases == 1 && baseItem.getOrCreateTag().getIntArray("fillings").length+fillings <= ((AbstractCustomizableProcessingItem) baseItem.getItem()).maxFillingSize();
     }
 
     @Override
@@ -57,9 +59,9 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
 
         for (int i = 0; i < p_44001_.getContainerSize(); i++) {
             if (!p_44001_.getItem(i).isEmpty()){
-                if (p_44001_.getItem(i).getItem() instanceof AbstractCustomizableBaseItem){
+                if (p_44001_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem){
                     baseItem = p_44001_.getItem(i);
-                } else if (supportedFillings().contains(p_44001_.getItem(i).getItem())){
+                } else if (rawFillingList().contains(p_44001_.getItem(i).getItem())){
                     addedFillings.add(p_44001_.getItem(i).getItem());
                 }
             }
@@ -77,14 +79,14 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
                     integerList.add(integer);
 
             for (ItemLike itemLike : addedFillings)
-                integerList.add(supportedFillings().indexOf(itemLike));
+                integerList.add(rawFillingList().indexOf(itemLike));
 
             result = new ItemStack(baseItem.getItem());
             result.getOrCreateTag().putIntArray("fillings",
                     integerList);
         }else{
             assert baseItem != null;
-            result = new ItemStack(((AbstractCustomizableBaseItem) baseItem.copy().getItem()).getProductItem());
+            result = new ItemStack(((AbstractCustomizableProcessingItem) baseItem.copy().getItem()).getProductItem());
             result.getOrCreateTag().putIntArray("fillings",
                     baseItem.getOrCreateTag().getIntArray("fillings"));
         }
@@ -102,16 +104,20 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
         return OtherRegistries.CUSTOMIZED_COOKING.get();
     }
 
-    public static List<ItemLike> supportedFillings() {
-        return new ArrayList<>(List.of(
-                ModItems.CHICKEN_CUTS.get(),
-                ModItems.BACON.get(),
-                ModItems.BEEF_PATTY.get(),
-                ModItems.SALMON_SLICE.get(),
-                ModItems.COD_SLICE.get(),
-                Items.CARROT,
-                Items.POTATO,
-                Items.EGG
-        )); //TODO: Reference of cooked fillings
+    public static Map<ItemLike, ItemLike> fillingMaps() {
+        HashMap<ItemLike, ItemLike> ret = new HashMap<>();
+        ret.put(ModItems.BACON.get(), ModItems.COOKED_BACON.get());
+        ret.put(ModItems.MINCED_BEEF.get(), ModItems.BEEF_PATTY.get());
+        ret.put(ModItems.SALMON_SLICE.get(), ModItems.COOKED_SALMON_SLICE.get());
+        ret.put(ModItems.COD_SLICE.get(), ModItems.COOKED_COD_SLICE.get());
+        ret.put(Items.CARROT, Items.CARROT);
+        ret.put(Items.POTATO, Items.POTATO);
+        ret.put(Items.EGG, ModItems.FRIED_EGG.get());
+
+        return ret;
+    }
+
+    public static List<ItemLike> rawFillingList() {
+        return new ArrayList<>(fillingMaps().keySet());
     }
 }

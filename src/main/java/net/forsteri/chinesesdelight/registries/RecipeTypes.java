@@ -1,7 +1,7 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
-import net.forsteri.chinesesdelight.contents.foods.customizable.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;

@@ -1,6 +1,6 @@
 package net.forsteri.chinesesdelight.contents.abstracts.customizable;
 
-import net.forsteri.chinesesdelight.contents.foods.customizable.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -14,22 +14,18 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractCustomizableBaseItem extends Item {
-    public AbstractCustomizableBaseItem(Properties p_41383_) {
-        super(p_41383_);
+public class AbstractCustomizableProductItem extends Item {
+    public AbstractCustomizableProductItem(Properties pProperties) {
+        super(pProperties);
     }
-
-    public abstract int maxFillingSize();
 
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, @NotNull TooltipFlag p_41424_) {
         p_41423_.addAll(Arrays.stream(p_41421_.getOrCreateTag().getIntArray("fillings"))
                 .mapToObj(i ->
-                        new TranslatableComponent(CustomRecipeHandler.supportedFillings().get(i).asItem().getDescriptionId())
+                        new TranslatableComponent(CustomRecipeHandler.rawFillingList().get(i).asItem().getDescriptionId())
                                 .withStyle(new ChatFormatting[]{ChatFormatting.GRAY})
                 ).toList());
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
     }
-
-    public abstract Item getProductItem();
 }

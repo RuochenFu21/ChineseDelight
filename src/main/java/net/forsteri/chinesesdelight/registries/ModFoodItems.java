@@ -1,8 +1,9 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
-import net.forsteri.chinesesdelight.contents.foods.RawDumplingProduct;
-import net.forsteri.chinesesdelight.contents.foods.customizable.ProcessingDumplingItem;
+import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProductItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.RawDumplingProduct;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.ProcessingDumplingItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,7 +26,7 @@ public class ModFoodItems {
         return ModFoodItems.ITEMS.register(name, () -> new Item(new Item.Properties().tab(ModItemGroup.MOD_ITEM_GROUP).food(foodValues)));
     }
 
-    private static <T extends Item> RegistryObject<Item> registerCustom(String name, Function<Item.Properties, T> item) {
+    private static <T extends Item> RegistryObject<T> registerCustom(String name, Function<Item.Properties, T> item) {
         return ModFoodItems.ITEMS.register(name,
                 () -> item.apply(new Item.Properties().tab(ModItemGroup.MOD_ITEM_GROUP)));
     }
@@ -33,5 +34,5 @@ public class ModFoodItems {
     public static final RegistryObject<Item> SMALL_BOWL_OF_EGG_AND_SEAWEED_SOUP = registerFood("small_bowl_of_egg_and_seaweed_soup", ModFoodValues.BOWL_OF_EGG_AND_SEAWEED_SOUP);
     public static final RegistryObject<Item> PROCESSING_DUMPLING = registerCustom("processing_dumpling", ProcessingDumplingItem::new);
 
-    public static final RegistryObject<Item> RAW_DUMPLING = registerCustom("raw_dumpling", RawDumplingProduct::new);
+    public static final RegistryObject<AbstractCustomizableProductItem> RAW_DUMPLING = registerCustom("raw_dumpling", RawDumplingProduct::new);
 }
