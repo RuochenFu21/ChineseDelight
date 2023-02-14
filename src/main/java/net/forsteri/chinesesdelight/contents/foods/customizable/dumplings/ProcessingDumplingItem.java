@@ -16,6 +16,6 @@ public class ProcessingDumplingItem extends AbstractCustomizableProcessingItem {
 
     @Override
     public AbstractCustomizableProductItem getProductItem() {
-        return ModFoodItems.RAW_DUMPLING.get();
+        return ModFoodItems.RAW_WHITE_DUMPLING.get();
     }
 }

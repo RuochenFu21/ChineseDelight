@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chinesesdelight:item/processing_dumpling"
+    "layer0": "chinesesdelight:item/dumpling_skin"
   }
 }

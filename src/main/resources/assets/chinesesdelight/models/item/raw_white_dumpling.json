@@ -1,0 +1,7 @@
+{
+  "parent": "chinesesdelight:item/dumpling_item",
+  "textures": {
+    "0": "chinesesdelight:item/raw_white_dumpling",
+    "particle": "chinesesdelight:item/raw_white_dumpling"
+  }
+}
