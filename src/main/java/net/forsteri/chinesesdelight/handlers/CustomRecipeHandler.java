@@ -106,6 +106,16 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
 
     public static Map<ItemLike, ItemLike> fillingMaps() {
         HashMap<ItemLike, ItemLike> ret = new HashMap<>();
+        ret.put(ModItems.CABBAGE.get(), ModItems.CABBAGE.get());
+        ret.put(ModItems.CABBAGE_LEAF.get(), ModItems.CABBAGE_LEAF.get());
+        ret.put(Items.BROWN_MUSHROOM, Items.BROWN_MUSHROOM);
+        ret.put(Items.RED_MUSHROOM, Items.RED_MUSHROOM);
+        ret.put(Items.CHICKEN, Items.COOKED_CHICKEN);
+        ret.put(Items.BEEF, Items.COOKED_BEEF);
+        ret.put(Items.PORKCHOP, Items.COOKED_PORKCHOP);
+        ret.put(Items.MUTTON, Items.COOKED_MUTTON);
+        ret.put(Items.RABBIT, Items.COOKED_RABBIT);
+        ret.put(Items.SALMON, Items.COOKED_SALMON);
         ret.put(ModItems.CHICKEN_CUTS.get(), ModItems.COOKED_CHICKEN_CUTS.get());
         ret.put(ModItems.BACON.get(), ModItems.COOKED_BACON.get());
         ret.put(ModItems.MINCED_BEEF.get(), ModItems.BEEF_PATTY.get());
@@ -114,12 +124,6 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
         ret.put(Items.CARROT, Items.CARROT);
         ret.put(Items.POTATO, Items.BAKED_POTATO);
         ret.put(Items.EGG, ModItems.FRIED_EGG.get());
-        ret.put(Items.CHICKEN, Items.COOKED_CHICKEN);
-        ret.put(Items.BEEF, Items.COOKED_BEEF);
-        ret.put(Items.PORKCHOP, Items.COOKED_PORKCHOP);
-        ret.put(Items.MUTTON, Items.COOKED_MUTTON);
-        ret.put(Items.RABBIT, Items.COOKED_RABBIT);
-        ret.put(Items.SALMON, Items.COOKED_SALMON);
         ret.put(Items.COD, Items.COOKED_COD);
         ret.put(Items.APPLE, Items.APPLE);
         ret.put(Items.GOLDEN_APPLE, Items.GOLDEN_APPLE);
