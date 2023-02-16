@@ -1,6 +1,7 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingBoilingRecipe;
 import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -10,13 +11,18 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public enum RecipeTypes {
-    CUSTOMIZED(() -> new SimpleRecipeSerializer<>(CustomRecipeHandler::new), () -> RecipeType.CRAFTING, false);
+    CUSTOMIZED(() -> new SimpleRecipeSerializer<>(CustomRecipeHandler::new), () -> RecipeType.CRAFTING, false),
+
+    DUMPLING(() -> new SimpleRecipeSerializer<>(DumplingBoilingRecipe::new), ModRecipeTypes.COOKING::get, false);
+
+
     private final ResourceLocation id;
     private final RegistryObject<RecipeSerializer<?>> serializerObject;
     @Nullable
