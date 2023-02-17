@@ -73,7 +73,8 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
         ItemStack ret = ModFoodItems.DUMPLING_SOUP.get().getDefaultInstance();
 
         for(int i=0; i<pContainer.getContainerSize(); i++){
-            ret.getOrCreateTag().putIntArray("dumpling" + i, pContainer.getItem(i).getOrCreateTag().getIntArray("fillings"));
+            if (pContainer.getItem(i).getItem() instanceof RawDumplingProduct)
+                ret.getOrCreateTag().putIntArray("dumpling" + i, pContainer.getItem(i).getOrCreateTag().getIntArray("fillings"));
         }
 
         return ret;

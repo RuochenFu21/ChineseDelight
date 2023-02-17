@@ -1,5 +1,6 @@
 {
-  "item.chinesesdelight.processing_white_dumpling.filled": "有馅饺子皮",
-  "item.chinesesdelight.raw_white_dumpling.filled": "生饺子",
-  "item.chinesesdelight.processing_white_dumpling.empty": "饺子皮"
+  "item.chinesesdelight.processing_white_dumpling.filled": "Filled Dumping Skin",
+  "item.chinesesdelight.raw_white_dumpling.filled": "Raw Dumping",
+  "item.chinesesdelight.processing_white_dumpling.empty": "Dumping Skin",
+  "item.chinesesdelight.dumpling" : "Dumpling"
 }
