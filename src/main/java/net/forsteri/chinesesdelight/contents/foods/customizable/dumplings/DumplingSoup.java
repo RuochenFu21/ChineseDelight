@@ -91,7 +91,7 @@ public class DumplingSoup extends ConsumableItem {
             tooltip.addAll(Arrays.stream(stack.getOrCreateTag().getIntArray("dumpling" + i))
                     .mapToObj(j ->
                             new TranslatableComponent(
-                                    CustomRecipeHandler.rawFillingList().get(j).asItem().getDescriptionId()
+                                    CustomRecipeHandler.cookedFillingList().get(j).asItem().getDescriptionId()
                             )
                                     .withStyle(new ChatFormatting[]{ChatFormatting.DARK_GRAY})
                     ).toList());
