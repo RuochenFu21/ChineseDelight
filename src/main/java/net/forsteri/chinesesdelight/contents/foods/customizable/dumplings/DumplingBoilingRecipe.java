@@ -51,21 +51,26 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
 
     @Override
     public boolean matches(RecipeWrapper pContainer, @NotNull Level pLevel) {
+
         List<ItemStack> includedItems = new ArrayList<>();
         for(int i=0; i<pContainer.getContainerSize(); i++){
             includedItems.add(pContainer.getItem(i));
         }
 
-        includedItems.removeIf(ItemStack::isEmpty);
+        List<ItemStack> dumplings = includedItems.subList(0, 5);
 
-        if(includedItems.stream().filter(itemStack -> itemStack.getItem() instanceof RawDumplingProduct).count() < 2)
+        dumplings.removeIf(ItemStack::isEmpty);
+
+        if(dumplings.stream().filter(itemStack -> itemStack.getItem() instanceof RawDumplingProduct).count() < 2)
             return false;
 
-        if(includedItems.stream().anyMatch(itemStack -> !(itemStack.getItem() instanceof RawDumplingProduct)))
+        if(dumplings.stream().anyMatch(itemStack ->
+                !(itemStack.getItem() instanceof RawDumplingProduct)))
             return false;
 
-        return pContainer.getItem(0).getItem() instanceof RawDumplingProduct
-                && pContainer.getItem(1).getItem() instanceof RawDumplingProduct;
+        return (pContainer.getItem(7).getItem() == Items.BOWL || pContainer.getItem(7).getItem() == Items.AIR)
+                && (pContainer.getItem(8).getItem() == ModFoodItems.DUMPLING_SOUP.get()
+                || pContainer.getItem(8).getItem() == Items.AIR);
     }
 
     @Override

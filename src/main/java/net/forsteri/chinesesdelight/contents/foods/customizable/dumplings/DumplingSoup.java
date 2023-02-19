@@ -1,6 +1,7 @@
 package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
 import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -25,7 +26,7 @@ import java.util.Objects;
 
 public class DumplingSoup extends ConsumableItem {
     public DumplingSoup(Properties properties) {
-        super(properties.craftRemainder(Items.BOWL));
+        super(properties.craftRemainder(Items.BOWL).stacksTo(16));
     }
 
     @Override
@@ -35,22 +36,31 @@ public class DumplingSoup extends ConsumableItem {
 
     @Override
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity consumer) {
-        for(List<ItemLike> fillings : getDumplingFillings(stack)){
-            for(ItemLike filling : fillings){
-                consumer.eat(level, filling.asItem().getDefaultInstance());
-            }
+        for(ItemLike filling :
+                getDumplingFillings(stack).get(getDumplingFillings(stack).size()-1)) {
+            consumer.eat(level, filling.asItem().getDefaultInstance());
         }
 
-        return stack;
+        ItemStack ret = ModFoodItems.DUMPLING_SOUP.get().getDefaultInstance();
+
+        for(int i=0; i<getDumplingFillings(stack).size()-1; i++)
+            ret.getOrCreateTag().putIntArray("dumpling" + i, stack.getOrCreateTag().getIntArray("dumpling" + i));
+
+        if(getDumplingFillings(ret).size() == 0) {
+            ret = new ItemStack(Items.BOWL);
+        }
+
+
+        return ret;
     }
 
-    protected List<List<ItemLike>> getDumplingFillings(ItemStack stack){
+    protected static List<List<ItemLike>> getDumplingFillings(ItemStack stack){
         List<List<ItemLike>> ret = new ArrayList<>();
 
         int i = 0;
         while (stack.getOrCreateTag().contains("dumpling" + i)) {
-            //noinspection SuspiciousMethodCalls
-            ret.add(stack.getOrCreateTag().getList("dumpling" + i, 8).stream().map(x -> CustomRecipeHandler.fillingMaps().get(x)).toList());
+            ret.add(
+                    Arrays.stream(stack.getOrCreateTag().getIntArray("dumpling" + i)).mapToObj(x -> CustomRecipeHandler.cookedFillingList().get(x)).toList());
             i++;
         }
 
@@ -99,5 +109,10 @@ public class DumplingSoup extends ConsumableItem {
         }
 
         super.appendHoverText(stack, level, tooltip, isAdvanced);
+    }
+
+    @Override
+    public int getUseDuration(@NotNull ItemStack pStack) {
+        return 10;
     }
 }
