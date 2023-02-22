@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class DumplingSoup extends ConsumableItem {
     public DumplingSoup(Properties properties) {
-        super(properties.craftRemainder(Items.BOWL).stacksTo(16));
+        super(properties.craftRemainder(Items.BOWL).stacksTo(1));
     }
 
     @Override
@@ -49,7 +49,6 @@ public class DumplingSoup extends ConsumableItem {
         if(getDumplingFillings(ret).size() == 0) {
             ret = new ItemStack(Items.BOWL);
         }
-
 
         return ret;
     }
