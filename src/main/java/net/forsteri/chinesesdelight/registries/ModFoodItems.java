@@ -11,6 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import vectorwing.farmersdelight.common.FoodValues;
 
 import java.util.function.Function;
 
@@ -35,6 +36,7 @@ public class ModFoodItems {
     public static final RegistryObject<Item> SMALL_BOWL_OF_EGG_AND_SEAWEED_SOUP = registerFood("small_bowl_of_egg_and_seaweed_soup", ModFoodValues.BOWL_OF_EGG_AND_SEAWEED_SOUP);
     public static final RegistryObject<Item> PROCESSING_WHITE_DUMPLING = registerCustom("processing_white_dumpling", ProcessingDumplingItem::new);
     public static final RegistryObject<AbstractCustomizableProductItem> RAW_WHITE_DUMPLING = registerCustom("raw_white_dumpling", RawDumplingProduct::new);
-
     public static final RegistryObject<DumplingSoup> DUMPLING_SOUP = registerCustom("dumpling_soup", DumplingSoup::new);
+    public static final RegistryObject<Item> DOUGH_SKIN = registerFood("dough_skin", FoodValues.WHEAT_DOUGH);
+    public static final RegistryObject<Item> CIRCULAR_CUTTER = registerCustom("circular_cutter", Item::new);
 }

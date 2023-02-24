@@ -2,6 +2,7 @@ package net.forsteri.chinesesdelight.mixin;
 
 import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
 import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
+import vectorwing.farmersdelight.common.registry.ModItems;
 
 @Mixin(value = CuttingBoardBlock.class, remap = false)
 public abstract class MixinCuttingBoard extends BaseEntityBlock implements SimpleWaterloggedBlock {
@@ -57,6 +59,20 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
                     }
                     cir.setReturnValue(InteractionResult.SUCCESS);
                     cir.cancel();
+                }
+                if(cuttingBoardEntity.getStoredItem().is(ModItems.WHEAT_DOUGH.get())) {
+                    cuttingBoardEntity.getInventory().insertItem(0,
+                            new ItemStack(ModFoodItems.DOUGH_SKIN.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
+                    cir.setReturnValue(InteractionResult.SUCCESS);
+                    cir.cancel();
+                }
+                if(cuttingBoardEntity.getStoredItem().is(ModFoodItems.DOUGH_SKIN.get())) {
+                    if (player.getItemInHand(hand).is(ModFoodItems.CIRCULAR_CUTTER.get())) {
+                        cuttingBoardEntity.getInventory().insertItem(0,
+                                new ItemStack(ModFoodItems.PROCESSING_WHITE_DUMPLING.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
+                        cir.setReturnValue(InteractionResult.SUCCESS);
+                        cir.cancel();
+                    }
                 }
             }
         }
