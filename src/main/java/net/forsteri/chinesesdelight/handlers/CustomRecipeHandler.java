@@ -11,11 +11,11 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import org.antlr.v4.misc.OrderedHashMap;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,7 +105,7 @@ public class CustomRecipeHandler extends CustomRecipe implements CraftingRecipe
     }
 
     public static Map<ItemLike, ItemLike> fillingMaps() {
-        OrderedHashMap<ItemLike, ItemLike> ret = new OrderedHashMap<>();
+        LinkedHashMap<ItemLike, ItemLike> ret = new LinkedHashMap<>();
         ret.put(ModItems.CABBAGE.get(), ModItems.CABBAGE.get());
         ret.put(ModItems.CABBAGE_LEAF.get(), ModItems.CABBAGE_LEAF.get());
         ret.put(Items.BROWN_MUSHROOM, Items.BROWN_MUSHROOM);
