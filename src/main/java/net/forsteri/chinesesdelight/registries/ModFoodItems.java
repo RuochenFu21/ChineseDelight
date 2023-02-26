@@ -38,5 +38,6 @@ public class ModFoodItems {
     public static final RegistryObject<AbstractCustomizableProductItem> RAW_WHITE_DUMPLING = registerCustom("raw_white_dumpling", RawDumplingProduct::new);
     public static final RegistryObject<DumplingSoup> DUMPLING_SOUP = registerCustom("dumpling_soup", DumplingSoup::new);
     public static final RegistryObject<Item> DOUGH_SKIN = registerFood("dough_skin", FoodValues.WHEAT_DOUGH);
+    public static final RegistryObject<Item> ROLLING_PIN = registerCustom("rolling_pin", Item::new);
     public static final RegistryObject<Item> CIRCULAR_CUTTER = registerCustom("circular_cutter", Item::new);
 }

@@ -60,7 +60,7 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
                     cir.setReturnValue(InteractionResult.SUCCESS);
                     cir.cancel();
                 }
-                if(cuttingBoardEntity.getStoredItem().is(ModItems.WHEAT_DOUGH.get())) {
+                if(cuttingBoardEntity.getStoredItem().is(ModItems.WHEAT_DOUGH.get()) && player.getItemInHand(hand).is(ModFoodItems.ROLLING_PIN.get())) {
                     cuttingBoardEntity.getInventory().insertItem(0,
                             new ItemStack(ModFoodItems.DOUGH_SKIN.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
                     cir.setReturnValue(InteractionResult.SUCCESS);
