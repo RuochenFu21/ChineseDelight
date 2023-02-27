@@ -77,6 +77,7 @@ public class CustomizableItemRenderer extends BlockEntityWithoutLevelRenderer {
         random.setSeed(0);
         for (int slot = 0; slot < pStack.getOrCreateTag().getIntArray("fillings").length; slot++) {
             pPoseStack.pushPose();
+            pPoseStack.scale(0.5F, 0.5F, 0.5F);
             ItemStack stack =
                     new ItemStack(CustomRecipeHandler.rawFillingList().get(pStack.getOrCreateTag().getIntArray("fillings")[slot]));
             pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 20 - 10));
