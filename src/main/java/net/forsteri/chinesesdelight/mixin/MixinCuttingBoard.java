@@ -1,7 +1,7 @@
 package net.forsteri.chinesesdelight.mixin;
 
 import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
-import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
+import net.forsteri.chinesesdelight.handlers.DumplingStuffingHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,23 +35,27 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
             ItemStack heldStack = player.getItemInHand(hand);
             if (!cuttingBoardEntity.isEmpty()) {
                 if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractCustomizableProcessingItem storedItem) {
-                    if (CustomRecipeHandler.rawFillingList().contains(heldStack.getItem())
-                            && cuttingBoardEntity.getStoredItem().getOrCreateTag().getIntArray("fillings").length < storedItem.maxFillingSize()){
+                    if (DumplingStuffingHandler.rawToCookedMap.containsKey(heldStack.getItem())
+                            && new DumplingStuffingHandler(cuttingBoardEntity.getStoredItem().getOrCreateTag().getCompound("fillings")).getAllStuffings().size() < storedItem.maxFillingSize()){
                         var inserted = new ItemStack(storedItem);
-                        inserted.getOrCreateTag().putIntArray("fillings",
 
-                                ArrayUtils.addAll(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getIntArray("fillings"),
-                                        CustomRecipeHandler.rawFillingList().indexOf(heldStack.getItem()))
-                        );
+                        var tag = new DumplingStuffingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings"));
+                        tag.addStuffing(heldStack.getItem());
+
+                        inserted.getOrCreateTag().put("fillings", tag.nbt);
 
                         cuttingBoardEntity.getInventory().insertItem(0,
                                 inserted, false);
+
                         heldStack.shrink(1);
-                    }
-                    else {
+                    } else {
                         var inserted = new ItemStack(storedItem.getProductItem());
-                        inserted.getOrCreateTag().putIntArray("fillings",
-                                cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getIntArray("fillings"));
+                        var tag =  new DumplingStuffingHandler(inserted.getOrCreateTag().getCompound("fillings"));
+                        tag.addStuffings(
+                                new DumplingStuffingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings")).getAllStuffings()
+                        );
+
+                        inserted.getOrCreateTag().put("fillings", tag.nbt);
 
                         cuttingBoardEntity.getInventory().insertItem(0,
                                 inserted, false);

@@ -1,6 +1,6 @@
 package net.forsteri.chinesesdelight.contents.abstracts.customizable;
 
-import net.forsteri.chinesesdelight.handlers.CustomizableItemRenderer;
+import net.forsteri.chinesesdelight.handlers.DumplingItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.client.IItemRenderProperties;
 
@@ -19,7 +19,7 @@ public abstract class AbstractCustomizableProcessingItem extends AbstractCustomi
     public void initializeClient(Consumer<IItemRenderProperties> consumer) {
         consumer.accept(new IItemRenderProperties() {
 
-            private final BlockEntityWithoutLevelRenderer renderer = new CustomizableItemRenderer();
+            private final BlockEntityWithoutLevelRenderer renderer = new DumplingItemRenderer();
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {

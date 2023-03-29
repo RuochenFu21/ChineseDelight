@@ -10,14 +10,16 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class CustomizableItemRenderer extends BlockEntityWithoutLevelRenderer {
-    public CustomizableItemRenderer() {
+public class DumplingItemRenderer extends BlockEntityWithoutLevelRenderer {
+    public DumplingItemRenderer() {
         //noinspection DataFlowIssue
         super(null, null);
     }
@@ -38,7 +40,7 @@ public class CustomizableItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         pPoseStack.translate(0, -3 / 16D, 0);
 
-        int size = pStack.getOrCreateTag().getIntArray("fillings").length;
+        int size = new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size();
 
 
         if (pTransformType.firstPerson() || pTransformType == ItemTransforms.TransformType.GUI) {
@@ -73,13 +75,15 @@ public class CustomizableItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         pPoseStack.popPose();
 
+        List<ItemStack> stuffings = new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().stream().map(Item::getDefaultInstance).toList();
+
 
         random.setSeed(0);
-        for (int slot = 0; slot < pStack.getOrCreateTag().getIntArray("fillings").length; slot++) {
+        for (int slot = 0; slot < new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size(); slot++) {
             pPoseStack.pushPose();
             pPoseStack.scale(0.5F, 0.5F, 0.5F);
             ItemStack stack =
-                    new ItemStack(CustomRecipeHandler.rawFillingList().get(pStack.getOrCreateTag().getIntArray("fillings")[slot]));
+                    stuffings.get(slot);
             pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 20 - 10));
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED, pPackedLight, pPackedOverlay, pPoseStack, pBuffer, slot);
             pPoseStack.popPose();
@@ -87,6 +91,4 @@ public class CustomizableItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         pPoseStack.popPose();
     }
-
-
 }

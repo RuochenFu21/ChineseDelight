@@ -1,7 +1,6 @@
 package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
-import net.forsteri.chinesesdelight.handlers.CustomRecipeHandler;
-import net.forsteri.chinesesdelight.registries.ModFoodItems;
+import net.forsteri.chinesesdelight.handlers.DumplingStuffingHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -20,10 +19,10 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 public class DumplingSoup extends ConsumableItem {
     public DumplingSoup(Properties properties) {
         super(properties.craftRemainder(Items.BOWL).stacksTo(1));
@@ -38,13 +37,19 @@ public class DumplingSoup extends ConsumableItem {
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity consumer) {
         for(ItemLike filling :
                 getDumplingFillings(stack).get(getDumplingFillings(stack).size()-1)) {
-            consumer.eat(level, filling.asItem().getDefaultInstance());
+            if (filling.asItem().isEdible())
+                consumer.eat(level, filling.asItem().getDefaultInstance());
+            else
+                if (consumer instanceof Player) {
+                    if (!((Player) consumer).getInventory().add(new ItemStack(filling)))
+                        consumer.spawnAtLocation(new ItemStack(filling));
+                } else
+                    consumer.spawnAtLocation(new ItemStack(filling));
         }
 
-        ItemStack ret = ModFoodItems.DUMPLING_SOUP.get().getDefaultInstance();
+        ItemStack ret = stack;
 
-        for(int i=0; i<getDumplingFillings(stack).size()-1; i++)
-            ret.getOrCreateTag().putIntArray("dumpling" + i, stack.getOrCreateTag().getIntArray("dumpling" + i));
+        ret.getOrCreateTag().getCompound("dumplings").remove("dumpling" + (getDumplingFillings(ret).size() - 1));
 
         if(getDumplingFillings(ret).size() == 0) {
             ret = new ItemStack(Items.BOWL);
@@ -57,9 +62,9 @@ public class DumplingSoup extends ConsumableItem {
         List<List<ItemLike>> ret = new ArrayList<>();
 
         int i = 0;
-        while (stack.getOrCreateTag().contains("dumpling" + i)) {
+        while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             ret.add(
-                    Arrays.stream(stack.getOrCreateTag().getIntArray("dumpling" + i)).mapToObj(x -> CustomRecipeHandler.cookedFillingList().get(x)).toList());
+                    new DumplingStuffingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream().map(x -> ((ItemLike) x)).toList());
             i++;
         }
 
@@ -72,7 +77,8 @@ public class DumplingSoup extends ConsumableItem {
 
         for(List<ItemLike> fillings : getDumplingFillings(itemstack)){
             for(ItemLike filling : fillings){
-                //noinspection deprecation
+                if (!filling.asItem().isEdible())
+                    continue;
                 if (!pPlayer.canEat(Objects.requireNonNull(filling.asItem().getFoodProperties()).canAlwaysEat())) {
                     canEat = false;
                     break;
@@ -94,13 +100,13 @@ public class DumplingSoup extends ConsumableItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
         int i = 0;
-        while (stack.getOrCreateTag().contains("dumpling" + i)) {
+        while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             tooltip.add(new TextComponent(new TranslatableComponent("item.chinesesdelight.dumpling").getString() + " " + (i + 1))
                     .withStyle(new ChatFormatting[]{ChatFormatting.GRAY}));
-            tooltip.addAll(Arrays.stream(stack.getOrCreateTag().getIntArray("dumpling" + i))
-                    .mapToObj(j ->
+            tooltip.addAll(new DumplingStuffingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream()
+                    .map(j ->
                             new TranslatableComponent(
-                                    CustomRecipeHandler.cookedFillingList().get(j).asItem().getDescriptionId()
+                                    j.getDescriptionId()
                             )
                                     .withStyle(new ChatFormatting[]{ChatFormatting.DARK_GRAY})
                     ).toList());

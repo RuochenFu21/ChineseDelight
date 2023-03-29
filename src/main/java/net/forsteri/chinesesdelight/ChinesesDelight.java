@@ -1,6 +1,7 @@
 package net.forsteri.chinesesdelight;
 
 import com.mojang.logging.LogUtils;
+import net.forsteri.chinesesdelight.handlers.DumplingStuffingLoader;
 import net.forsteri.chinesesdelight.handlers.SpecialModelHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -95,6 +97,14 @@ public class ChinesesDelight {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // Register a new block here
             LOGGER.info("HELLO from Register Block");
+        }
+    }
+
+    @Mod.EventBusSubscriber
+    public static class ForgeEvents {
+        @SubscribeEvent
+        public static void addReloadListeners(AddReloadListenerEvent event) {
+            event.addListener(DumplingStuffingLoader.INSTANCE);
         }
     }
 }
