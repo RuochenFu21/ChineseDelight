@@ -5,6 +5,7 @@ import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCust
 import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingSoup;
 import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.ProcessingDumplingItem;
 import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.RawDumplingProduct;
+import net.forsteri.chinesesdelight.contents.steamer.SteamerLidItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,4 +41,5 @@ public class ModFoodItems {
     public static final RegistryObject<Item> DOUGH_SKIN = registerFood("dough_skin", FoodValues.WHEAT_DOUGH);
     public static final RegistryObject<Item> ROLLING_PIN = registerCustom("rolling_pin", Item::new);
     public static final RegistryObject<Item> CIRCULAR_CUTTER = registerCustom("circular_cutter", Item::new);
+    public static final RegistryObject<Item> STEAMER_LID = registerCustom("steamer_lid", SteamerLidItem::new);
 }

@@ -40,6 +40,7 @@ public class ChinesesDelight {
 
         ModFoodItems.ITEMS.register(eventBus);
         ModFoodBlocks.BLOCKS.register(eventBus);
+        ModFoodBlocks.TILE_ENTITY.register(eventBus);
     //    OtherRegistries.register();
         RecipeTypes.register(eventBus);
         // Register the setup method for modloading

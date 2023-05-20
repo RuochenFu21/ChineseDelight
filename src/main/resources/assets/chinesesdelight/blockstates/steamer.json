@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "size=1,have_lid=false": {
+      "model": "chinesesdelight:block/steamer_1"
+    },
+    "size=1,have_lid=true": {
+      "model": "chinesesdelight:block/steamer_1_lid"
+    },
+    "size=2,have_lid=false": {
+      "model": "chinesesdelight:block/steamer_2"
+    },
+    "size=2,have_lid=true": {
+      "model": "chinesesdelight:block/steamer_2_lid"
+    },
+    "size=3,have_lid=false": {
+      "model": "chinesesdelight:block/steamer_3"
+    },
+    "size=3,have_lid=true": {
+      "model": "chinesesdelight:block/steamer_3_lid"
+    },
+    "size=4,have_lid=false": {
+      "model": "chinesesdelight:block/steamer_4"
+    },
+    "size=4,have_lid=true": {
+      "model": "chinesesdelight:block/steamer_4_lid"
+    }
+  }
+}
