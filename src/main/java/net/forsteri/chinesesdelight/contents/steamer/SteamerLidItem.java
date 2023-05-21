@@ -4,6 +4,7 @@ import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -36,10 +37,26 @@ public class SteamerLidItem extends Item {
                 } else
                     break;
             }
-            level.setBlock(pos.above(above), ModFoodBlocks.STEAMER.get().defaultBlockState().setValue(SteamerBlock.HAVE_LID, true), 11);
+            var context = new BlockPlaceContext(pContext) {
+                @SuppressWarnings("ProtectedMemberInFinalClass")
+                protected int _above;
 
-            pContext.getItemInHand().shrink(1);
-            return InteractionResult.SUCCESS;
+                @Override
+                public @NotNull BlockPos getClickedPos() {
+                    return pos.above(_above);
+                }
+            };
+
+            context._above = above;
+
+
+            if (level.getBlockState(pos.above(above)).canBeReplaced(context)) {
+                level.setBlock(pos.above(above), ModFoodBlocks.STEAMER.get().defaultBlockState().setValue(SteamerBlock.HAVE_LID, true), 11);
+
+                pContext.getItemInHand().shrink(1);
+                return InteractionResult.SUCCESS;
+            } else
+                return InteractionResult.FAIL;
         }
         return super.useOn(pContext);
     }

@@ -47,8 +47,6 @@ public class SteamerItem extends BlockItem {
             }
 
             if (level.getBlockState(pos.above(above-1)).getValue(SteamerBlock.HAVE_LID)) {
-
-                level.setBlock(pos.above(above-1), level.getBlockState(pos.above(above-1)).setValue(SteamerBlock.HAVE_LID, false), 11);
                 var ret = new InnerBlockPlaceContext(pContext) {
                     public int _above = 0;
 
@@ -62,7 +60,11 @@ public class SteamerItem extends BlockItem {
 
                 ret._above = above;
 
-                return super.place(ret);
+                if (ret.canPlace()) {
+                    level.setBlock(pos.above(above-1), level.getBlockState(pos.above(above-1)).setValue(SteamerBlock.HAVE_LID, false), 11);
+
+                    return super.place(ret);
+                }
             } else {
                 var ret = new BlockPlaceContext(pContext) {
                     public int _above = 0;
