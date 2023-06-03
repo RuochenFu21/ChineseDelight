@@ -1,11 +1,13 @@
 package net.forsteri.chinesesdelight;
 
 import com.mojang.logging.LogUtils;
+import net.forsteri.chinesesdelight.contents.steamer.SteamerBlockRenderer;
 import net.forsteri.chinesesdelight.handlers.DumplingStuffingLoader;
 import net.forsteri.chinesesdelight.handlers.SpecialModelHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.forsteri.chinesesdelight.registries.RecipeTypes;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -98,6 +100,12 @@ public class ChinesesDelight {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // Register a new block here
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent
+        public static void onClientSetupEvent(final FMLCommonSetupEvent event) {
+            // Register a new block here
+            event.enqueueWork(() -> BlockEntityRenderers.register(ModFoodBlocks.STEAMER_BLOCK_ENTITY.get(), SteamerBlockRenderer::new));
         }
     }
 

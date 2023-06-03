@@ -1,28 +1,52 @@
 {
   "variants": {
-    "size=1,have_lid=false": {
+    "size=1,have_lid=false,connected=false": {
       "model": "chinesesdelight:block/steamer_1"
     },
-    "size=1,have_lid=true": {
+    "size=1,have_lid=true,connected=false": {
       "model": "chinesesdelight:block/steamer_1_lid"
     },
-    "size=2,have_lid=false": {
+    "size=2,have_lid=false,connected=false": {
       "model": "chinesesdelight:block/steamer_2"
     },
-    "size=2,have_lid=true": {
+    "size=2,have_lid=true,connected=false": {
       "model": "chinesesdelight:block/steamer_2_lid"
     },
-    "size=3,have_lid=false": {
+    "size=3,have_lid=false,connected=false": {
       "model": "chinesesdelight:block/steamer_3"
     },
-    "size=3,have_lid=true": {
+    "size=3,have_lid=true,connected=false": {
       "model": "chinesesdelight:block/steamer_3_lid"
     },
-    "size=4,have_lid=false": {
+    "size=4,have_lid=false,connected=false": {
       "model": "chinesesdelight:block/steamer_4"
     },
-    "size=4,have_lid=true": {
+    "size=4,have_lid=true,connected=false": {
       "model": "chinesesdelight:block/steamer_4_lid"
+    },
+    "size=1,have_lid=false,connected=true": {
+      "model": "chinesesdelight:block/steamer_1_connected"
+    },
+    "size=1,have_lid=true,connected=true": {
+      "model": "chinesesdelight:block/steamer_1_lid_connected"
+    },
+    "size=2,have_lid=false,connected=true": {
+      "model": "chinesesdelight:block/steamer_2_connected"
+    },
+    "size=2,have_lid=true,connected=true": {
+      "model": "chinesesdelight:block/steamer_2_lid_connected"
+    },
+    "size=3,have_lid=false,connected=true": {
+      "model": "chinesesdelight:block/steamer_3_connected"
+    },
+    "size=3,have_lid=true,connected=true": {
+      "model": "chinesesdelight:block/steamer_3_lid_connected"
+    },
+    "size=4,have_lid=false,connected=true": {
+      "model": "chinesesdelight:block/steamer_4_connected"
+    },
+    "size=4,have_lid=true,connected=true": {
+      "model": "chinesesdelight:block/steamer_4_lid_connected"
     }
   }
 }

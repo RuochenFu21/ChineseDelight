@@ -1,5 +1,6 @@
 package net.forsteri.chinesesdelight.contents.steamer;
 
+import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
@@ -10,8 +11,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.block.CookingPotBlock;
 
 import java.util.Objects;
+
+import static net.forsteri.chinesesdelight.contents.steamer.SteamerBlock.CONNECTED;
+import static net.forsteri.chinesesdelight.contents.steamer.SteamerBlock.HAVE_LID;
 
 public class SteamerItem extends BlockItem {
     public SteamerItem(Block pBlock, Properties pProperties) {
@@ -29,6 +34,7 @@ public class SteamerItem extends BlockItem {
         if (level.getBlockState(pos).getBlock() instanceof SteamerBlock) {
             if (level.getBlockState(pos).getValue(SteamerBlock.SIZE) < 4) {
                 level.setBlock(pos, level.getBlockState(pos).setValue(SteamerBlock.SIZE, level.getBlockState(pos).getValue(SteamerBlock.SIZE) + 1), 11);
+                pContext.getItemInHand().shrink(1);
                 return InteractionResult.SUCCESS;
             }
 
@@ -38,6 +44,7 @@ public class SteamerItem extends BlockItem {
                 if (level.getBlockState(pos.above(above)).getBlock() instanceof SteamerBlock) {
                     if (level.getBlockState(pos.above(above)).getValue(SteamerBlock.SIZE) < 4) {
                         level.setBlock(pos.above(above), level.getBlockState(pos.above(above)).setValue(SteamerBlock.SIZE, level.getBlockState(pos.above(above)).getValue(SteamerBlock.SIZE) + 1), 11);
+                        pContext.getItemInHand().shrink(1);
                         return InteractionResult.SUCCESS;
                     }
 
@@ -82,6 +89,36 @@ public class SteamerItem extends BlockItem {
                 return super.place(ret);
             }
 
+        }
+
+        if (level.getBlockState(pos).getBlock() instanceof CookingPotBlock) {
+            if (level.getBlockState(pos.above()).isAir()) {
+                level.setBlock(pos.above(), ModFoodBlocks.STEAMER.get().defaultBlockState().setValue(CONNECTED, true), 11);
+                pContext.getItemInHand().shrink(1);
+                return InteractionResult.SUCCESS;
+            }
+
+            int above = 1;
+
+            while (true) {
+
+                if (level.getBlockState(pos.above(above)).isAir()) {
+                    level.setBlock(pos.above(above), ModFoodBlocks.STEAMER.get().defaultBlockState().setValue(HAVE_LID, level.getBlockState(pos.above(above-1)).getValue(HAVE_LID)), 11);
+                    pContext.getItemInHand().shrink(1);
+                    return InteractionResult.SUCCESS;
+                }
+
+                if (level.getBlockState(pos.above(above)).getBlock() instanceof SteamerBlock) {
+                    if (level.getBlockState(pos.above(above)).getValue(SteamerBlock.SIZE) < 4) {
+                        level.setBlock(pos.above(above), level.getBlockState(pos.above(above)).setValue(SteamerBlock.SIZE, level.getBlockState(pos.above(above)).getValue(SteamerBlock.SIZE) + 1), 11);
+                        pContext.getItemInHand().shrink(1);
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        above++;
+                    }
+                } else
+                    break;
+            }
         }
 
 
