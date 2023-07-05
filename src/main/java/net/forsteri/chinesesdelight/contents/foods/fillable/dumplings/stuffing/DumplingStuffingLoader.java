@@ -1,4 +1,4 @@
-package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
+package net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.stuffing;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -47,7 +47,7 @@ public class DumplingStuffingLoader extends SimpleJsonResourceReloadListener {
                     throw new RuntimeException("Invalid cooked stuffing specified for dumpling stuffing data: " + id);
                 }
 
-                DumplingFillingHandler.rawToCookedMap.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())), ForgeRegistries.ITEMS.getValue(new ResourceLocation((cookedElement.getAsString()))));
+                DumplingStuffingMap.rawToCookedMap.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())), ForgeRegistries.ITEMS.getValue(new ResourceLocation((cookedElement.getAsString()))));
             }
         }
     }

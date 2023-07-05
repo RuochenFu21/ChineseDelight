@@ -1,8 +1,9 @@
 package net.forsteri.chinesesdelight.mixin;
 
-import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizable;
-import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProcessingItem;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingFillingHandler;
+import net.forsteri.chinesesdelight.contents.foods.fillable.AbstractFillable;
+import net.forsteri.chinesesdelight.contents.foods.fillable.AbstractFillableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.fillable.FillingHandler;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.stuffing.DumplingStuffingMap;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -35,12 +36,12 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
         if (tileEntity instanceof CuttingBoardBlockEntity cuttingBoardEntity) {
             ItemStack heldStack = player.getItemInHand(hand);
             if (!cuttingBoardEntity.isEmpty()) {
-                if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractCustomizableProcessingItem storedItem) {
-                    if (DumplingFillingHandler.rawToCookedMap.containsKey(heldStack.getItem())
-                            && new DumplingFillingHandler(cuttingBoardEntity.getStoredItem().getOrCreateTag().getCompound("fillings")).getAllStuffings().size() < storedItem.maxFillingSize()){
+                if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractFillableProcessingItem storedItem) {
+                    if (DumplingStuffingMap.rawToCookedMap.containsKey(heldStack.getItem())
+                            && new FillingHandler(cuttingBoardEntity.getStoredItem().getOrCreateTag().getCompound("fillings")).getAllStuffings().size() < storedItem.maxFillingSize()){
                         var inserted = new ItemStack(storedItem);
 
-                        var tag = new DumplingFillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings"));
+                        var tag = new FillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings"));
                         tag.addStuffing(heldStack.getItem());
 
                         inserted.getOrCreateTag().put("fillings", tag.nbt);
@@ -52,11 +53,11 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
 
                         cir.setReturnValue(InteractionResult.SUCCESS);
                         cir.cancel();
-                    } else if (AbstractCustomizable.hasFillings(cuttingBoardEntity.getStoredItem())){
+                    } else if (AbstractFillable.hasFillings(cuttingBoardEntity.getStoredItem())){
                         var inserted = new ItemStack(storedItem.getProductItem());
-                        var tag =  new DumplingFillingHandler(inserted.getOrCreateTag().getCompound("fillings"));
+                        var tag =  new FillingHandler(inserted.getOrCreateTag().getCompound("fillings"));
                         tag.addStuffings(
-                                new DumplingFillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings")).getAllStuffings()
+                                new FillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings")).getAllStuffings()
                         );
 
                         inserted.getOrCreateTag().put("fillings", tag.nbt);

@@ -1,7 +1,8 @@
-package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes;
+package net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.recipes;
 
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.RawDumplingProduct;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingFillingHandler;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.stuffing.DumplingStuffingMap;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.items.RawDumplingItem;
+import net.forsteri.chinesesdelight.contents.foods.fillable.FillingHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.forsteri.chinesesdelight.registries.OtherRegistries;
 import net.minecraft.core.NonNullList;
@@ -64,11 +65,11 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
 
         dumplings.removeIf(ItemStack::isEmpty);
 
-        if(dumplings.stream().filter(itemStack -> itemStack.getItem() instanceof RawDumplingProduct).count() < 2)
+        if(dumplings.stream().filter(itemStack -> itemStack.getItem() instanceof RawDumplingItem).count() < 2)
             return false;
 
         if(dumplings.stream().anyMatch(itemStack ->
-                !(itemStack.getItem() instanceof RawDumplingProduct)))
+                !(itemStack.getItem() instanceof RawDumplingItem)))
             return false;
 
         return (pContainer.getItem(7).getItem() == Items.BOWL || pContainer.getItem(7).getItem() == Items.AIR)
@@ -83,14 +84,14 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
         ret.getOrCreateTag().put("dumplings", new CompoundTag());
 
         for(int i=0; i<pContainer.getContainerSize(); i++){
-            if (pContainer.getItem(i).getItem() instanceof RawDumplingProduct){
+            if (pContainer.getItem(i).getItem() instanceof RawDumplingItem){
 
                 ret.getOrCreateTag().getCompound("dumplings").put("dumpling" + i, new CompoundTag());
 
-                DumplingFillingHandler handle = new DumplingFillingHandler(ret.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i));
+                FillingHandler handle = new FillingHandler(ret.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i));
 
-                new DumplingFillingHandler(pContainer.getItem(i).getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
-                        handle::addStuffing
+                new FillingHandler(pContainer.getItem(i).getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
+                        stuffing -> handle.addStuffing(DumplingStuffingMap.rawToCookedMap.get(stuffing))
                 );
             }
         }

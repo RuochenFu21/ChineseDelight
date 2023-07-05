@@ -1,5 +1,7 @@
-package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
+package net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.items;
 
+import net.forsteri.chinesesdelight.contents.foods.fillable.FillingHandler;
+import net.forsteri.chinesesdelight.contents.foods.fillable.FillingUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -22,8 +24,8 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class DumplingSoup extends ConsumableItem {
-    public DumplingSoup(Properties properties) {
+public class DumplingSoupItem extends ConsumableItem {
+    public DumplingSoupItem(Properties properties) {
         super(properties.craftRemainder(Items.BOWL).stacksTo(1));
     }
 
@@ -63,7 +65,7 @@ public class DumplingSoup extends ConsumableItem {
         int i = 0;
         while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             ret.add(
-                    new DumplingFillingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream().map(x -> ((ItemLike) x)).toList());
+                    new FillingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream().map(x -> ((ItemLike) x)).toList());
             i++;
         }
 
@@ -101,14 +103,10 @@ public class DumplingSoup extends ConsumableItem {
         int i = 0;
         while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             tooltip.add(new TextComponent(new TranslatableComponent("item.chinesesdelight.dumpling").getString() + " " + (i + 1))
-                    .withStyle(new ChatFormatting[]{ChatFormatting.GRAY}));
-            tooltip.addAll(new DumplingFillingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream()
-                    .map(j ->
-                            new TranslatableComponent(
-                                    j.getDescriptionId()
-                            )
-                                    .withStyle(new ChatFormatting[]{ChatFormatting.DARK_GRAY})
-                    ).toList());
+                    .withStyle(new ChatFormatting[]{ChatFormatting.DARK_GRAY}));
+
+            FillingUtil.appendCompressedHoverText(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i), tooltip, ChatFormatting.GRAY);
+
             i++;
         }
 

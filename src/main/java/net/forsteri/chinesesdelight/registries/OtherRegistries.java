@@ -1,7 +1,7 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes.DumplingCraftingRecipe;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.recipes.DumplingCraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraftforge.registries.DeferredRegister;

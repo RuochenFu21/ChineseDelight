@@ -2,7 +2,7 @@ package net.forsteri.chinesesdelight;
 
 import com.mojang.logging.LogUtils;
 import net.forsteri.chinesesdelight.contents.steamer.SteamerBlockRenderer;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingStuffingLoader;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.stuffing.DumplingStuffingLoader;
 import net.forsteri.chinesesdelight.handlers.SpecialModelHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;

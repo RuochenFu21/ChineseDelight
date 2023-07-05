@@ -1,10 +1,10 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
-import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProductItem;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingSoup;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.ProcessingDumplingItem;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.RawDumplingProduct;
+import net.forsteri.chinesesdelight.contents.foods.fillable.AbstractFillableProductItem;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.items.DumplingSoupItem;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.items.ProcessingDumplingItem;
+import net.forsteri.chinesesdelight.contents.foods.fillable.dumplings.items.RawDumplingItem;
 import net.forsteri.chinesesdelight.contents.steamer.SteamerLidItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
@@ -42,8 +42,8 @@ public class ModFoodItems {
 
     public static final RegistryObject<Item> SMALL_BOWL_OF_EGG_AND_SEAWEED_SOUP = registerFood("small_bowl_of_egg_and_seaweed_soup", ModFoodValues.BOWL_OF_EGG_AND_SEAWEED_SOUP);
     public static final RegistryObject<Item> PROCESSING_WHITE_DUMPLING = registerCustom("processing_white_dumpling", ProcessingDumplingItem::new);
-    public static final RegistryObject<AbstractCustomizableProductItem> RAW_WHITE_DUMPLING = registerCustom("raw_white_dumpling", RawDumplingProduct::new);
-    public static final RegistryObject<DumplingSoup> DUMPLING_SOUP = registerCustom("dumpling_soup", DumplingSoup::new);
+    public static final RegistryObject<AbstractFillableProductItem> RAW_WHITE_DUMPLING = registerCustom("raw_white_dumpling", RawDumplingItem::new);
+    public static final RegistryObject<DumplingSoupItem> DUMPLING_SOUP = registerCustom("dumpling_soup", DumplingSoupItem::new);
     public static final RegistryObject<Item> FLAT_DOUGH = registerFood("flat_dough", FoodValues.WHEAT_DOUGH);
     public static final RegistryObject<Item> ROLLING_PIN = registerCustom("rolling_pin", Item::new);
     public static final RegistryObject<Item> CIRCULAR_CUTTER = registerCustom("circular_cutter", Item::new);
