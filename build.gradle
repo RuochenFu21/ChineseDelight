@@ -19,11 +19,11 @@ plugins {
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-group = 'chinesesdelight'
+group = 'chinesedelight'
 version = '0.1'
 
 java {
-    archivesBaseName = 'chinesesdelight'
+    archivesBaseName = 'chinesedelight'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
@@ -67,10 +67,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'chinesesdelight'
+            property 'forge.enabledGameTestNamespaces', 'chinesedelight'
 
             mods {
-                chinesesdelight {
+                chinesedelight {
                 source sourceSets.main
             }
         }
@@ -83,10 +83,10 @@ minecraft {
 
         property 'forge.logging.console.level', 'debug'
 
-        property 'forge.enabledGameTestNamespaces', 'chinesesdelight'
+        property 'forge.enabledGameTestNamespaces', 'chinesedelight'
 
         mods {
-            chinesesdelight {
+            chinesedelight {
             source sourceSets.main
         }
     }
@@ -102,10 +102,10 @@ gameTestServer {
 
     property 'forge.logging.console.level', 'debug'
 
-    property 'forge.enabledGameTestNamespaces', 'chinesesdelight'
+    property 'forge.enabledGameTestNamespaces', 'chinesedelight'
 
     mods {
-        chinesesdelight {
+        chinesedelight {
         source sourceSets.main
     }
 }
@@ -119,10 +119,10 @@ data {
     property 'forge.logging.console.level', 'debug'
 
     // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-    args '--mod', 'chinesesdelight ', '-- all ', '-- output ', file(' src / generated / resources / '), '-- existing ', file(' src / main / resources / ')
+    args '--mod', 'chinesedelight ', '-- all ', '-- output ', file(' src / generated / resources / '), '-- existing ', file(' src / main / resources / ')
 
     mods {
-        chinesesdelight {
+        chinesedelight {
         source sourceSets.main
     }
 }
@@ -192,12 +192,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "chinese'sdelight",
-                //"Specification-Vendor": "chinese'sdelight authors",
+                "Specification-Title"     : "chinesedelight",
+                //"Specification-Vendor": "chinesedelight authors",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                //"Implementation-Vendor": "chinese'sdelight authors",
+                //"Implementation-Vendor": "chinesedelight authors",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -206,9 +206,9 @@ jar {
 jar.finalizedBy('reobfJar')
 
 mixin {
-    add sourceSets.main, "chinesesdelight.refmap.json"
+    add sourceSets.main, "chinesedelight.refmap.json"
 
-    config "chinesesdelight.mixins.json"
+    config "chinesedelight.mixins.json"
 }
 
 tasks.withType(JavaCompile).configureEach {

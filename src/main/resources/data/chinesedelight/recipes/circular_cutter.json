@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "S S",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "chinesedelight:circular_cutter",
+    "count": 1
+  }
+}

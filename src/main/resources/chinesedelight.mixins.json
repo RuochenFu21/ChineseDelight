@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.forsteri.chinesedelight.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "chinesedelight.refmap.json",
+  "mixins": [
+    "MixinCuttingBoard",
+    "MixinCookingPotBlockEntity"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

@@ -1,0 +1,16 @@
+{
+  "itemGroup.chinesedelight": "中餐乐事",
+
+  "item.chinesedelight.processing_white_dumpling.filled": "有馅饺子皮",
+  "item.chinesedelight.processing_white_dumpling.empty": "饺子皮",
+  "item.chinesedelight.raw_white_dumpling.filled": "生饺子",
+  "item.chinesedelight.raw_white_dumpling.empty": "没有馅的生饺子",
+  "item.chinesedelight.dumpling_soup": "饺子汤",
+  "item.chinesedelight.flat_dough": "面饼",
+  "tooltip.chinesedelight.dumpling": "饺子",
+
+  "item.chinesedelight.circular_cutter": "圆形模具",
+  "item.chinesedelight.rolling_pin": "擀面棍",
+  "block.chinesedelight.steamer": "蒸笼",
+  "item.chinesedelight.steamer_lid": "蒸笼盖"
+}
