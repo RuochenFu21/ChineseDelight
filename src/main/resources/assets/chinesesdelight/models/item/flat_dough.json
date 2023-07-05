@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chinesesdelight:item/dough_skin"
+    "layer0": "chinesesdelight:item/flat_dough"
   }
 }

@@ -1,6 +1,6 @@
 package net.forsteri.chinesesdelight.handlers;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProcessingItem;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class SpecialModelHandler {
 
-    protected static Map<ResourceLocation, BakedModel> modelLocation = new HashMap<>();
+    public static Map<ResourceLocation, BakedModel> modelLocation = new HashMap<>();
 
     public static void onSpecialModelRegistry(ModelRegistryEvent ignoredEvent) {
         for(RegistryObject<Item> itemRegistryObject :ModFoodItems.ITEMS.getEntries())

@@ -1,6 +1,7 @@
-package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
+package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes;
 
-import net.forsteri.chinesesdelight.handlers.DumplingStuffingHandler;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.RawDumplingProduct;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingFillingHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.forsteri.chinesesdelight.registries.OtherRegistries;
 import net.minecraft.core.NonNullList;
@@ -59,7 +60,7 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
             includedItems.add(pContainer.getItem(i));
         }
 
-        List<ItemStack> dumplings = includedItems.subList(0, 5);
+        List<ItemStack> dumplings = includedItems.subList(0, 7);
 
         dumplings.removeIf(ItemStack::isEmpty);
 
@@ -86,9 +87,9 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
 
                 ret.getOrCreateTag().getCompound("dumplings").put("dumpling" + i, new CompoundTag());
 
-                DumplingStuffingHandler handle = new DumplingStuffingHandler(ret.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i));
+                DumplingFillingHandler handle = new DumplingFillingHandler(ret.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i));
 
-                new DumplingStuffingHandler(pContainer.getItem(i).getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
+                new DumplingFillingHandler(pContainer.getItem(i).getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
                         handle::addStuffing
                 );
             }

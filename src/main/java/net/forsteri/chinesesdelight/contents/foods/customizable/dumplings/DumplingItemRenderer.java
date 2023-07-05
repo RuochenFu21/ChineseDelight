@@ -1,7 +1,8 @@
-package net.forsteri.chinesesdelight.handlers;
+package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import net.forsteri.chinesesdelight.handlers.SpecialModelHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -40,7 +41,7 @@ public class DumplingItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         pPoseStack.translate(0, -3 / 16D, 0);
 
-        int size = new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size();
+        int size = new DumplingFillingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size();
 
 
         if (pTransformType.firstPerson() || pTransformType == ItemTransforms.TransformType.GUI) {
@@ -75,11 +76,11 @@ public class DumplingItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         pPoseStack.popPose();
 
-        List<ItemStack> stuffings = new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().stream().map(Item::getDefaultInstance).toList();
+        List<ItemStack> stuffings = new DumplingFillingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().stream().map(Item::getDefaultInstance).toList();
 
 
         random.setSeed(0);
-        for (int slot = 0; slot < new DumplingStuffingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size(); slot++) {
+        for (int slot = 0; slot < new DumplingFillingHandler(pStack.getOrCreateTag().getCompound("fillings")).getAllStuffings().size(); slot++) {
             pPoseStack.pushPose();
             pPoseStack.scale(0.5F, 0.5F, 0.5F);
             ItemStack stack =

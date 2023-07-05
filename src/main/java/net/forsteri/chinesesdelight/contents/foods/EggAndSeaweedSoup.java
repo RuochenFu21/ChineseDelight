@@ -1,6 +1,6 @@
 package net.forsteri.chinesesdelight.contents.foods;
 
-import net.forsteri.chinesesdelight.contents.abstracts.AbstractBowlWithSoupBlock;
+import net.forsteri.chinesesdelight.contents.foods.abstracts.AbstractBowlWithSoupBlock;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.world.level.ItemLike;
 

@@ -1,7 +1,7 @@
 package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProductItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProductItem;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 
 public class ProcessingDumplingItem extends AbstractCustomizableProcessingItem {

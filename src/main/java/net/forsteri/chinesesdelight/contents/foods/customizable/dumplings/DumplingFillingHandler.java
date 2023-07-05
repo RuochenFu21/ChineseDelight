@@ -1,4 +1,4 @@
-package net.forsteri.chinesesdelight.handlers;
+package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -7,13 +7,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
-public class DumplingStuffingHandler {
+public class DumplingFillingHandler {
     public static Map<Item, Item> rawToCookedMap = new HashMap<>();
 
     public CompoundTag nbt;
     private Integer stuffingCount = 0;
 
-    public DumplingStuffingHandler(CompoundTag pTag) {
+    public DumplingFillingHandler(CompoundTag pTag) {
         this.nbt = pTag;
         this.stuffingCount += pTag.size();
     }
@@ -50,5 +50,9 @@ public class DumplingStuffingHandler {
         return getAllStuffings().stream().anyMatch(
                 i -> i.getDefaultInstance().hasFoil()
         );
+    }
+
+    public boolean isEmpty() {
+        return getAllStuffings().isEmpty();
     }
 }

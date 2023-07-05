@@ -1,7 +1,8 @@
 package net.forsteri.chinesesdelight.mixin;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
-import net.forsteri.chinesesdelight.handlers.DumplingStuffingHandler;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizable;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingFillingHandler;
 import net.forsteri.chinesesdelight.registries.ModFoodItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -35,11 +36,11 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
             ItemStack heldStack = player.getItemInHand(hand);
             if (!cuttingBoardEntity.isEmpty()) {
                 if(cuttingBoardEntity.getStoredItem().getItem() instanceof AbstractCustomizableProcessingItem storedItem) {
-                    if (DumplingStuffingHandler.rawToCookedMap.containsKey(heldStack.getItem())
-                            && new DumplingStuffingHandler(cuttingBoardEntity.getStoredItem().getOrCreateTag().getCompound("fillings")).getAllStuffings().size() < storedItem.maxFillingSize()){
+                    if (DumplingFillingHandler.rawToCookedMap.containsKey(heldStack.getItem())
+                            && new DumplingFillingHandler(cuttingBoardEntity.getStoredItem().getOrCreateTag().getCompound("fillings")).getAllStuffings().size() < storedItem.maxFillingSize()){
                         var inserted = new ItemStack(storedItem);
 
-                        var tag = new DumplingStuffingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings"));
+                        var tag = new DumplingFillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings"));
                         tag.addStuffing(heldStack.getItem());
 
                         inserted.getOrCreateTag().put("fillings", tag.nbt);
@@ -48,28 +49,32 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
                                 inserted, false);
 
                         heldStack.shrink(1);
-                    } else {
+
+                        cir.setReturnValue(InteractionResult.SUCCESS);
+                        cir.cancel();
+                    } else if (AbstractCustomizable.hasFillings(cuttingBoardEntity.getStoredItem())){
                         var inserted = new ItemStack(storedItem.getProductItem());
-                        var tag =  new DumplingStuffingHandler(inserted.getOrCreateTag().getCompound("fillings"));
+                        var tag =  new DumplingFillingHandler(inserted.getOrCreateTag().getCompound("fillings"));
                         tag.addStuffings(
-                                new DumplingStuffingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings")).getAllStuffings()
+                                new DumplingFillingHandler(cuttingBoardEntity.getInventory().extractItem(0, 1, false).getOrCreateTag().getCompound("fillings")).getAllStuffings()
                         );
 
                         inserted.getOrCreateTag().put("fillings", tag.nbt);
 
                         cuttingBoardEntity.getInventory().insertItem(0,
                                 inserted, false);
+
+                        cir.setReturnValue(InteractionResult.SUCCESS);
+                        cir.cancel();
                     }
-                    cir.setReturnValue(InteractionResult.SUCCESS);
-                    cir.cancel();
                 }
                 if(cuttingBoardEntity.getStoredItem().is(ModItems.WHEAT_DOUGH.get()) && player.getItemInHand(hand).is(ModFoodItems.ROLLING_PIN.get())) {
                     cuttingBoardEntity.getInventory().insertItem(0,
-                            new ItemStack(ModFoodItems.DOUGH_SKIN.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
+                            new ItemStack(ModFoodItems.FLAT_DOUGH.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
                     cir.setReturnValue(InteractionResult.SUCCESS);
                     cir.cancel();
                 }
-                if(cuttingBoardEntity.getStoredItem().is(ModFoodItems.DOUGH_SKIN.get())) {
+                if(cuttingBoardEntity.getStoredItem().is(ModFoodItems.FLAT_DOUGH.get())) {
                     if (player.getItemInHand(hand).is(ModFoodItems.CIRCULAR_CUTTER.get())) {
                         cuttingBoardEntity.getInventory().insertItem(0,
                                 new ItemStack(ModFoodItems.PROCESSING_WHITE_DUMPLING.get(), cuttingBoardEntity.getInventory().extractItem(0, cuttingBoardEntity.getInventory().getStackInSlot(0).getCount(), false).getCount()), false);
@@ -77,6 +82,8 @@ public abstract class MixinCuttingBoard extends BaseEntityBlock implements Simpl
                         cir.cancel();
                     }
                 }
+
+                // We used mixin to make the crafting more immersive
             }
         }
     }

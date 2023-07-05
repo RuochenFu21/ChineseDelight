@@ -20,9 +20,6 @@ public class MixinCookingPotBlockEntity {
 
     @ModifyVariable(method = "processCooking", at = @At("STORE"), ordinal = 0)
     private ItemStack modifyCookingResult(ItemStack result) {
-        System.out.println("recipe: " +
-                result
-        );
         return recipe.assemble(new RecipeWrapper(inventory));
     }
 

@@ -1,6 +1,8 @@
-package net.forsteri.chinesesdelight.handlers;
+package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes;
 
-import net.forsteri.chinesesdelight.contents.abstracts.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizable;
+import net.forsteri.chinesesdelight.contents.foods.customizable.AbstractCustomizableProcessingItem;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingFillingHandler;
 import net.forsteri.chinesesdelight.registries.OtherRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -16,11 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DumplingCraftingHandler extends CustomRecipe implements CraftingRecipe
+public class DumplingCraftingRecipe extends CustomRecipe implements CraftingRecipe
 {
-
-
-    public DumplingCraftingHandler(ResourceLocation p_43833_) {
+    public DumplingCraftingRecipe(ResourceLocation p_43833_) {
         super(p_43833_);
     }
 
@@ -35,18 +35,19 @@ public class DumplingCraftingHandler extends CustomRecipe implements CraftingRec
             if (!p_44002_.getItem(i).isEmpty()){
                 if (
                         !(p_44002_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem
-                        || DumplingStuffingHandler.rawToCookedMap.containsKey(p_44002_.getItem(i).getItem())))
+                        || DumplingFillingHandler.rawToCookedMap.containsKey(p_44002_.getItem(i).getItem())))
                     return false;
                 else
                     if (p_44002_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem){
                         bases++;
-                    baseItem = p_44002_.getItem(i);}
-                    else
+                        baseItem = p_44002_.getItem(i);
+                    } else
                         fillings++;
             }
         }
-        return bases == 1 &&
-                new DumplingStuffingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings().size() + fillings <= ((AbstractCustomizableProcessingItem) baseItem.getItem()).maxFillingSize();
+        return bases == 1
+                && (AbstractCustomizable.hasFillings(baseItem) || fillings > 0)
+                && new DumplingFillingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings().size() + fillings <= ((AbstractCustomizableProcessingItem) baseItem.getItem()).maxFillingSize();
     }
 
     @Override
@@ -59,7 +60,7 @@ public class DumplingCraftingHandler extends CustomRecipe implements CraftingRec
             if (!p_44001_.getItem(i).isEmpty()){
                 if (p_44001_.getItem(i).getItem() instanceof AbstractCustomizableProcessingItem){
                     baseItem = p_44001_.getItem(i);
-                } else if (DumplingStuffingHandler.rawToCookedMap.containsKey(p_44001_.getItem(i).getItem())){
+                } else if (DumplingFillingHandler.rawToCookedMap.containsKey(p_44001_.getItem(i).getItem())){
                     addedFillings.add(p_44001_.getItem(i).getItem());
                 }
             }
@@ -73,17 +74,17 @@ public class DumplingCraftingHandler extends CustomRecipe implements CraftingRec
         if(addedFillings.size() > 0){
             result = new ItemStack(baseItem.getItem());
             result.getOrCreateTag().put("fillings", new CompoundTag());
-            (new DumplingStuffingHandler(result.getOrCreateTag().getCompound("fillings"))).addStuffings(addedFillings.stream().map(ItemLike::asItem).toList());
+            (new DumplingFillingHandler(result.getOrCreateTag().getCompound("fillings"))).addStuffings(addedFillings.stream().map(ItemLike::asItem).toList());
 
-            (new DumplingStuffingHandler(result.getOrCreateTag().getCompound("fillings"))).addStuffings(
-                    new DumplingStuffingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings()
+            (new DumplingFillingHandler(result.getOrCreateTag().getCompound("fillings"))).addStuffings(
+                    new DumplingFillingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings()
             );
         }else{
             result = new ItemStack(((AbstractCustomizableProcessingItem) baseItem.copy().getItem()).getProductItem());
 
-            DumplingStuffingHandler stuffingHandler = new DumplingStuffingHandler(result.getOrCreateTag().getCompound("fillings"));
+            DumplingFillingHandler stuffingHandler = new DumplingFillingHandler(result.getOrCreateTag().getCompound("fillings"));
 
-            new DumplingStuffingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
+            new DumplingFillingHandler(baseItem.getOrCreateTag().getCompound("fillings")).getAllStuffings().forEach(
                     stuffingHandler::addStuffing);
 
             result.getOrCreateTag().put("fillings", stuffingHandler.nbt);

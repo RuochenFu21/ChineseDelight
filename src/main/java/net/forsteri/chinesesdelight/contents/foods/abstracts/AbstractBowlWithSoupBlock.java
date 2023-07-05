@@ -1,4 +1,4 @@
-package net.forsteri.chinesesdelight.contents.abstracts;
+package net.forsteri.chinesesdelight.contents.foods.abstracts;
 
 import net.forsteri.chinesesdelight.registries.ModFoodBlocks;
 import net.minecraft.core.BlockPos;

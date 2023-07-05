@@ -1,6 +1,5 @@
 package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
-import net.forsteri.chinesesdelight.handlers.DumplingStuffingHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -64,7 +63,7 @@ public class DumplingSoup extends ConsumableItem {
         int i = 0;
         while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             ret.add(
-                    new DumplingStuffingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream().map(x -> ((ItemLike) x)).toList());
+                    new DumplingFillingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream().map(x -> ((ItemLike) x)).toList());
             i++;
         }
 
@@ -103,7 +102,7 @@ public class DumplingSoup extends ConsumableItem {
         while (stack.getOrCreateTag().getCompound("dumplings").contains("dumpling" + i)) {
             tooltip.add(new TextComponent(new TranslatableComponent("item.chinesesdelight.dumpling").getString() + " " + (i + 1))
                     .withStyle(new ChatFormatting[]{ChatFormatting.GRAY}));
-            tooltip.addAll(new DumplingStuffingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream()
+            tooltip.addAll(new DumplingFillingHandler(stack.getOrCreateTag().getCompound("dumplings").getCompound("dumpling" + i)).getAllStuffings().stream()
                     .map(j ->
                             new TranslatableComponent(
                                     j.getDescriptionId()

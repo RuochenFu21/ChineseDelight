@@ -1,6 +1,6 @@
-package net.forsteri.chinesesdelight.contents.abstracts.customizable;
+package net.forsteri.chinesesdelight.contents.foods.customizable;
 
-import net.forsteri.chinesesdelight.handlers.DumplingItemRenderer;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.client.IItemRenderProperties;
 

@@ -1,8 +1,8 @@
 package net.forsteri.chinesesdelight.registries;
 
 import net.forsteri.chinesesdelight.ChinesesDelight;
-import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.DumplingBoilingRecipe;
-import net.forsteri.chinesesdelight.handlers.DumplingCraftingHandler;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes.DumplingBoilingRecipe;
+import net.forsteri.chinesesdelight.contents.foods.customizable.dumplings.recipes.DumplingCraftingRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public enum RecipeTypes {
-    CUSTOMIZED(() -> new SimpleRecipeSerializer<>(DumplingCraftingHandler::new), () -> RecipeType.CRAFTING, false),
+    CUSTOMIZED(() -> new SimpleRecipeSerializer<>(DumplingCraftingRecipe::new), () -> RecipeType.CRAFTING, false),
 
     DUMPLING(() -> new SimpleRecipeSerializer<>(DumplingBoilingRecipe::new), ModRecipeTypes.COOKING::get, false);
 

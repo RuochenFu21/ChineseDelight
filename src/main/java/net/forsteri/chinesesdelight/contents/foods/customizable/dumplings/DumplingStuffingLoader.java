@@ -1,4 +1,4 @@
-package net.forsteri.chinesesdelight.handlers;
+package net.forsteri.chinesesdelight.contents.foods.customizable.dumplings;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -39,19 +39,15 @@ public class DumplingStuffingLoader extends SimpleJsonResourceReloadListener {
                 if (cookedElement == null)
                     cookedElement = rawElement;
 
-                try{
-                    assert ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())) != Items.AIR;
-                }catch (Exception e) {
+                if (ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())) == Items.AIR) {
                     throw new RuntimeException("Invalid raw stuffing specified for dumpling stuffing data: " + id);
                 }
 
-                try{
-                    assert ForgeRegistries.ITEMS.getValue(new ResourceLocation(cookedElement.getAsString())) != Items.AIR;
-                }catch (Exception e) {
+                if (ForgeRegistries.ITEMS.getValue(new ResourceLocation(cookedElement.getAsString())) == Items.AIR) {
                     throw new RuntimeException("Invalid cooked stuffing specified for dumpling stuffing data: " + id);
                 }
 
-                DumplingStuffingHandler.rawToCookedMap.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())), ForgeRegistries.ITEMS.getValue(new ResourceLocation((cookedElement.getAsString()))));
+                DumplingFillingHandler.rawToCookedMap.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawElement.getAsString())), ForgeRegistries.ITEMS.getValue(new ResourceLocation((cookedElement.getAsString()))));
             }
         }
     }
