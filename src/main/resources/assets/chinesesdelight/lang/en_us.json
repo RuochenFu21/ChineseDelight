@@ -1,6 +1,18 @@
 {
+  "itemGroup.chinesesdelight": "Chinese's Delight",
+
   "item.chinesesdelight.processing_white_dumpling.filled": "Filled Dumping Skin",
-  "item.chinesesdelight.raw_white_dumpling.filled": "Raw Dumping",
   "item.chinesesdelight.processing_white_dumpling.empty": "Dumping Skin",
-  "item.chinesesdelight.dumpling" : "Dumpling"
+
+  "item.chinesesdelight.raw_white_dumpling.filled": "Raw Dumping",
+  "item.chinesesdelight.raw_white_dumpling.empty": "Empty Raw Dumping",
+
+  "item.chinesesdelight.dumpling_soup": "Dumpling Soup",
+
+  "item.chinesesdelight.flat_dough": "Flat Dough",
+
+  "item.chinesesdelight.circular_cutter": "Circular Cutter",
+  "item.chinesesdelight.rolling_pin": "Rolling Pin",
+  "block.chinesesdelight.steamer": "Steamer",
+  "item.chinesesdelight.steamer_lid": "Steamer Lid"
 }
