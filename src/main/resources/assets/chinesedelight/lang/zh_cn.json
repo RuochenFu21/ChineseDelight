@@ -8,6 +8,8 @@
   "item.chinesedelight.dumpling_soup": "饺子汤",
   "item.chinesedelight.flat_dough": "面饼",
   "tooltip.chinesedelight.dumpling": "饺子",
+  "jei.tooltip.processing_white_dumpling": "使用%1$s或%2$s给饺子填馅料或包起来，最多3个饺子馅",
+  "jei.tooltip.dumpling_filling": "以上物品可以作为饺子馅",
 
   "item.chinesedelight.circular_cutter": "圆形模具",
   "item.chinesedelight.rolling_pin": "擀面棍",

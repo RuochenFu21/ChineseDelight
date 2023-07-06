@@ -8,6 +8,9 @@
   "item.chinesedelight.dumpling_soup": "Dumpling Soup",
   "item.chinesedelight.flat_dough": "Flat Dough",
   "tooltip.chinesedelight.dumpling": "Dumpling",
+  "jei.tooltip.processing_white_dumpling": "Add fillings to the dumpling with a %1$s or a %2$s, same with assembling, maximum 3 fillings",
+  "jei.tooltip.dumpling_filling": "These/this can be used as a filling for dumplings",
+
 
   "item.chinesedelight.circular_cutter": "Circular Cutter",
   "item.chinesedelight.rolling_pin": "Rolling Pin",

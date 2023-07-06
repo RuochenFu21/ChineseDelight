@@ -1,8 +1,8 @@
 package net.forsteri.chinesedelight.contents.foods.fillable.dumplings.recipes;
 
-import net.forsteri.chinesedelight.contents.foods.fillable.dumplings.stuffing.DumplingStuffingMap;
-import net.forsteri.chinesedelight.contents.foods.fillable.dumplings.items.RawDumplingItem;
 import net.forsteri.chinesedelight.contents.foods.fillable.FillingHandler;
+import net.forsteri.chinesedelight.contents.foods.fillable.dumplings.items.RawDumplingItem;
+import net.forsteri.chinesedelight.contents.foods.fillable.dumplings.stuffing.DumplingStuffingMap;
 import net.forsteri.chinesedelight.registries.ModFoodItems;
 import net.forsteri.chinesedelight.registries.OtherRegistries;
 import net.minecraft.core.NonNullList;
@@ -27,7 +27,18 @@ public class DumplingBoilingRecipe extends CookingPotRecipe {
     private final ResourceLocation id;
 
     public DumplingBoilingRecipe(ResourceLocation pId) {
-        super(pId, "", CookingPotRecipeBookTab.findByName("meals"), NonNullList.of(Ingredient.of(ModFoodItems.RAW_WHITE_DUMPLING.get())), ModFoodItems.DUMPLING_SOUP.get().getDefaultInstance(), Items.BOWL.getDefaultInstance(), 0, 200);
+        super(
+                pId,
+                "",
+                CookingPotRecipeBookTab.MEALS,
+                NonNullList.of(Ingredient.EMPTY,
+                        Ingredient.of(ModFoodItems.RAW_WHITE_DUMPLING.get()),
+                        Ingredient.of(ModFoodItems.RAW_WHITE_DUMPLING.get())),
+                ModFoodItems.DUMPLING_SOUP.get().getDefaultInstance(),
+                ItemStack.EMPTY,
+                0,
+                200
+                );
         this.id = pId;
     }
 
